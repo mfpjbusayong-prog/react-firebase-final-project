@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { db } from "./firebase";
 import {
   collection,
@@ -27,12 +27,12 @@ function App() {
     setSaving(false);
   };
 
-  const fetchNotes = async () => {
+const fetchNotes = useCallback(async () => {
     const q = query(notesCollection, orderBy("createdAt", "desc"));
     const data = await getDocs(q);
     setNotes(data.docs.map((d) => ({ ...d.data(), id: d.id })));
     setLoading(false);
-  };
+  }, [notesCollection]);
 
   const deleteNote = async (id) => {
     await deleteDoc(doc(db, "notes", id));
