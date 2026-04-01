@@ -59,7 +59,9 @@ function App() {
     return new Date().toDateString() === d.toDateString();
   }).length;
 
-  useEffect(() => { fetchNotes(); }, []);
+ useEffect(() => {
+    fetchNotes();
+}, [fetchNotes]);
 
   return (
     <div className="app-wrap">
